@@ -102,8 +102,10 @@ $(function (hrBlock) {
         $(".container").on("click", ".saveBtn", function () {
             // var id = attr("id")
             var id = (this.id);
-            console.log(id);
-            console.log("test");
+            var toSave = $(this).prev().val();
+            // console.log(id);
+            console.log(toSave);
+            localStorage.setItem(id, toSave);
         })
     });
 
