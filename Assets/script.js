@@ -3,7 +3,7 @@
 // - [X] timeblocks for 9 - 5 (inlcuding 5)
 // - [X] timeblocks are color coded based on past, present, future
 // - [X] click to enter an event (textarea)
-// - [ ] storing event content into local storage with button
+// - [X] storing event content into local storage with button
 // - 
 
 //moment in the header, using set interval to update everyone second
