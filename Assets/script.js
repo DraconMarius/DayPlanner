@@ -1,9 +1,9 @@
 // Ask: Create a day planner where elements are dynamically generated
 // - [X] the current day is displayed at the top of the calendar
-// - [ ] timeblocks for 9 - 5 (inlcuding 5)
+// - [X] timeblocks for 9 - 5 (inlcuding 5)
 // - [ ] timeblocks are color coded based on past, present, future
 // - [ ] click to enter an event
-// - [ ] storing event content into local storage
+// - [ ] storing event content into local storage with button
 // - 
 
 //moment in the header, using set interval to update everyone second
@@ -23,36 +23,95 @@ setInterval(function () {
 //get variable to have the string of html
 //
 //ok we want a row with the ID of the hours, class of row to store the events
-//inside the row will be the hrs will be 3, 8, 3 with bootstrap grids.
+//inside the row will be the hrs will be 2, 8, 2 with bootstrap grids.
 
 // function newBox() {
 
 $(function (hrBlock) {
+    // var currentH = $( <-- not needed moment().format("ha"));
+    var milT = ["9", "10", "11", "12", "13", "14", "15", "16", "17"]
     var hrBlock = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
     // var hours = 0
     for (var i = 0; i < hrBlock.length; i++) {
-        var cont = $("<div class ='row bg-secondary rounded-lg'></div>");
+        var cont = $("<div class =' time-block row rounded-lg'></div>");
         //making an empty container with the class of row
         // cont.addClass("row");
         // cont.attr('id', hrs)
-        var btn = $("<btn class ='col-2 bg-info border rounded-right-lg'> Sav </btn>");
-        var evText = $("<textarea class ='col-8 bg-secondary'></textarea>");
-        var hrLabel = $("<p class ='col-2 bg-white'></p>");
-        hrLabel.text(hrBlock[i])
+        var btn = $("<btn class ='col-2 saveBtn d-flex justify-content-center align-items-center'> Sav </btn>");
+        var evText = $("<textarea class ='col-8'></textarea>");
+        evText.attr("id", milT[i]);// so we can use it to determine the colors
+        var hrLabel = $("<p class ='col-2 bg-white d-flex justify-content-center align-items-center'></p>");
+        hrLabel.text(hrBlock[i]);
         $(cont).append(hrLabel, evText, btn);
-        //im actually not sure why below is required for the box to show...?
+        //putting it in the container
         $(".container").append(cont);
-
-
-    }
+    };
+    // $("div").each(function () {
+    //colors based on past prest future
+    $(function () {
+        for (var i = 0; i < hrBlock.length; i++) {
+            var momentH = moment().format("H");
+            var currentH = (parseInt(momentH));
+            var h = (parseInt(milT[i]));
+            // console.log(currentH);
+            // console.log(h);
+            // console.log("present: " + (h == currentH));
+            // console.log("past: " + (h < currentH));
+            // console.log("future: " + (h > currentH));
+            var present = (h == currentH);
+            var past = (h < currentH);
+            var future = (h > currentH);
+            if (present) {
+                $("#" + milT[i]).addClass("present");
+            } else if (past) {
+                $("#" + milT[i]).addClass("past");
+            } else if (future) {
+                $("#" + milT[i]).addClass("future");
+            } else return;
+        };
+    })
+    //update every 30 seconds
+    setInterval(function () {
+        for (var i = 0; i < hrBlock.length; i++) {
+            var momentH = moment().format("H");
+            var currentH = (parseInt(momentH));
+            var h = (parseInt(milT[i]));
+            // console.log(currentH);
+            // console.log(h);
+            // console.log("present: " + (h == currentH));
+            // console.log("past: " + (h < currentH));
+            // console.log("future: " + (h > currentH));
+            var present = (h == currentH);
+            var past = (h < currentH);
+            var future = (h > currentH);
+            if (present) {
+                $("#" + milT[i]).addClass("present");
+            } else if (past) {
+                $("#" + milT[i]).addClass("past");
+            } else if (future) {
+                $("#" + milT[i]).addClass("future");
+            } else return;
+        };
+    }, 1500);
 });
+        // });
 
 
-
-
-
-
-
+        //     var
+        //         console.log(currentH);
+        //     console.log(parseInt(currentH));
+        //     // if (currentH.is()
+        // for (var i = 0; i < hrBlock.length; i++) {
+        // var intNowBlock = $("#row").val(hrBlock[i])
+        // console.log($("#row").val(hrBlock[i]))
+        // if (currentH.is($("#id"))) {
+        //     this.val(hrBlock[i]).addClass(".Present");
+        //     console.log("test" + hrBlock[i]);
+        // } else return;
+        // };
+        // $(".time-block").each(function (i) {
+        //     // console.log($(this).attr("id"));
+        // });
 
 
 
@@ -79,5 +138,4 @@ $(function (hrBlock) {
         // } if (i = 8) {
         //     $(".container").append(cont);
         // } if (i = 9) {
-        //     $(".container").append(cont);
-        // } else return
+        //     $(".container").append(cont)
