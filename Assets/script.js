@@ -1,8 +1,8 @@
 // Ask: Create a day planner where elements are dynamically generated
 // - [X] the current day is displayed at the top of the calendar
 // - [X] timeblocks for 9 - 5 (inlcuding 5)
-// - [ ] timeblocks are color coded based on past, present, future
-// - [ ] click to enter an event
+// - [X] timeblocks are color coded based on past, present, future
+// - [X] click to enter an event (textarea)
 // - [ ] storing event content into local storage with button
 // - 
 
@@ -37,9 +37,11 @@ $(function (hrBlock) {
         //making an empty container with the class of row
         // cont.addClass("row");
         // cont.attr('id', hrs)
-        var btn = $("<btn class ='col-2 saveBtn d-flex justify-content-center align-items-center'> Sav </btn>");
+        var btn = $("<btn class ='col-2 saveBtn d-flex justify-content-center align-items-center'> <i class='fas fa-cat fa-3x'></i> </btn>");
+        btn.attr("id", milT[i]);
         var evText = $("<textarea class ='col-8'></textarea>");
         evText.attr("id", milT[i]);// so we can use it to determine the colors
+        evText.text(localStorage.getItem(milT[i]))
         var hrLabel = $("<p class ='col-2 bg-white d-flex justify-content-center align-items-center'></p>");
         hrLabel.text(hrBlock[i]);
         $(cont).append(hrLabel, evText, btn);
@@ -70,7 +72,8 @@ $(function (hrBlock) {
             } else return;
         };
     })
-    //update every 30 seconds
+    //update every 30 seconds could have named a fn 
+    //but i didn't wanna mess it up...
     setInterval(function () {
         for (var i = 0; i < hrBlock.length; i++) {
             var momentH = moment().format("H");
@@ -93,6 +96,17 @@ $(function (hrBlock) {
             } else return;
         };
     }, 1500);
+
+    // console.log(typeof ($(".saveBtn").attr("id")));//string
+    $(function (event) {
+        $(".container").on("click", ".saveBtn", function () {
+            // var id = attr("id")
+            var id = (this.id);
+            console.log(id);
+            console.log("test");
+        })
+    });
+
 });
         // });
 
